@@ -1,0 +1,28 @@
+install.packages("tidyverse")
+library(tidyverse)
+library(readr)
+
+nominees <- read_csv("~/Desktop/Main/Data Analysis/Ballon d'or/Ballon D'or - Sheet1.csv")
+glimpse(nominees)
+
+amt_country <- nominees %>%
+  group_by(Country) %>%
+  summarize(amount = n())
+
+glimpse(amt_country)
+
+ggplot(data = amt_country) +
+  geom_col(mapping = aes(x = Country, y = amount, fill=Country)) +
+  labs(title="Nominees by Country")+
+  theme(axis.text.x = element_text(angle = 270))
+  
+
+
+amt_club <- nominees %>%
+  group_by(Club) %>%
+  summarize(amount = n())
+
+glimpse(amt_club)
+
+ggplot(data = amt_club) +
+  geom_col(mapping = aes(x=amount, y = Club, fill=amount))
